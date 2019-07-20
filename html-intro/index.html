@@ -4,166 +4,78 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href='./style.css'
+      type='text/css'
+      rel='stylesheet'
+    />
 		<title>Document</title>
 	</head>
 
 	<body>
-		<h1 id='title'>My h1 title</h1>
-		<h2>My h2 title</h2>
-		<h3>My h3 title</h3>
-		<h4>My h4 title</h4>
-		<h5>My h5 title</h5>
-		<h6>My h6 title</h6>
+    <div class='container'>
+      <div class='register'>
+        <h3>Register</h3>
+        <div class='name-container'>
+          <h5>Name</h5>
+          <div class='row'>
+            <label>Username<span class='required'>*</span></label>
+            <input class='username-input' />
+          </div>
+          <div class='row'>
+            <label>First name</label>
+            <input />
+          </div>
+          <div class='row'>
+            <label>Last name</label>
+            <input />
+          </div>
+          <div class='row'>
+            <label>Nick name</label>
+            <input />
+          </div>
+        </div>
 
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-			nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-			facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-			nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-			vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-			faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-			imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-			malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-			magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-			mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-			metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-			vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
+        <div class='contact-container'>
+          <h5>Contact Info</h5>
+          <div class='row'>
+            <label>Email<span class='required'>*</span></label>
+            <input />
+          </div>
+          <div class='row'>
+            <label>Website</label>
+            <input />
+          </div>
+        </div>
 
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-      nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-      facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-      nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-      vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-      faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-      imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-      malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-      magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-      mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-      metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-      vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
+        <div class='about-container'>
+          <h5>About yourself</h5>
+          <div class='row'>
+            <label>Biography Info</label>
+            <textarea rows='6'></textarea>
+          </div>
+          <div class='row'>
+            <label>Password<span class='required'>*</span></label>
+            <input />
+          </div>
+          <div class='row'>
+            <label>Repeate Password<span class='required'>*</span></label>
+            <input />
+          </div>
+        </div>
 
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-      nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-      facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-      nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-      vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-      faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-      imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-      malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-      magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-      mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-      metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-      vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
+        <div class='checkbox-container'>
+          <input type='checkbox' />
+          Send these credential via email
+        </div>
 
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-      nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-      facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-      nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-      vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-      faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-      imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-      malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-      magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-      mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-      metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-      vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-      nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-      facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-      nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-      vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-      faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-      imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-      malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-      magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-      mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-      metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-      vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
-
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-      nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-      facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-      nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-      vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-      faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-      imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-      malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-      magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-      mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-      metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-      vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-      nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-      facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-      nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-      vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-      faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-      imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-      malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-      magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-      mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-      metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-      vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat
-      nulla fringilla vehicula cursus. Duis ex nibh, commodo eu dolor ut,
-      facilisis interdum justo. Donec in nisi id lectus dignissim posuere a eu
-      nibh. Vivamus malesuada pellentesque venenatis. Ut scelerisque eget lectus
-      vel laoreet. Praesent tellus lectus, congue quis tortor et, tristique
-      faucibus neque. Sed et nisl tincidunt quam dictum vulputate. Maecenas
-      imperdiet ante nec lorem molestie lobortis. Quisque eleifend sollicitudin
-      malesuada. Cras eu diam nec sapien porttitor sodales. Nullam tincidunt,
-      magna quis porta euismod, erat orci interdum purus, tincidunt rutrum nunc
-      mauris sed nisl. Fusce ante sapien, consequat eu gravida id, aliquam non
-      metus. Nullam tempus viverra mi, eget placerat risus dignissim a. Nam
-      vestibulum bibendum augue, a eleifend lorem blandit sit amet.
-    </p>
-
-    <div></div>
-    <span></span>
-    
-    <a href='https://google.com' target='_blank'>Google.com</a>
-
-    <a href='#title'>Back to top</a>
-
-    <!-- <img src='https://www.w3schools.com/w3css/img_lights.jpg' /> -->
-    <img src='./123.jpg' />
-
-    <form>
-      <input type='text' placeholder='Fullname' />
-      <input type='email' placeholder='Email address' />
-      <input type='password' placeholder='Password' />
-      <input type='date' placeholder='DOB' />
-      <input type='submit' value='Send' />
-
-      <input type='checkbox' value='1' name='option'/> Option 1
-      <input type='checkbox' value='2' name='option'/> Option 2
-    
-      <input type='radio' value='1' name='radio'/> Radio 1
-      <input type='radio' value='2' name='radio'/> Radio 2
-
-      <textarea placeholder='Your address' rows='10'></textarea>
-    </form>
-
-    <button>My Button</button>
+        <div class='button-container'>
+          <button class='register-button'>Register</button>
+        </div>
+      </div>
+      <div class='sidebar'></div>
+    </div>
 
 		<script src="../js-introduction/intro.js"></script>
 	</body>
