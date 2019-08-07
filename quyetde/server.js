@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 // method + address
 // get/post/put/delete
 app.get('/', (req, res) => {
-	res.send('Hello world');
+	// index.html
+	res.sendFile(path.resolve(__dirname, './public/index.html'));
 });
 
 // dirname: current working folder
@@ -71,8 +72,87 @@ app.get('/questions/:questionId', (req, res) => {
 });
 
 app.get('/get-question-by-id', (req, res) => {
-	// query
-	console.log(req.query);
+	const questionId = req.query.questionId;
+
+	fs.readFile('data.json', 'utf8', (error, data) => {
+		if (error) {
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		} else {
+			const questions = JSON.parse(data);
+			let selectedQuestion;
+			for (const item of questions) {
+				if (item.id === Number(questionId)) {
+					selectedQuestion = item;
+					break;
+				}
+			}
+
+			res.status(200).json({
+				success: true,
+				data: selectedQuestion,
+			});
+		}
+	});
+});
+
+app.get('/get-random-question', (req, res) => {
+	fs.readFile('data.json', 'utf8', (error, data) => {
+		if (error) {
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		} else {
+			const questions = JSON.parse(data);
+			const randomIndex = Math.floor(Math.random() * questions.length);
+			const selectedQuestion = questions[randomIndex];
+
+			res.status(200).json({
+				success: true,
+				data: selectedQuestion,
+			});
+		}
+	});
+});
+
+app.put('/vote-question', (req, res) => {
+	// read file
+	fs.readFile('data.json', 'utf8', (error, data) => {
+		if (error) {
+			res.status(500).json({
+				success: false,
+				message: error.message,
+			});
+		} else {
+			const questions = JSON.parse(data);
+			for (const item of questions) {
+				if (item.id === Number(req.body.questionId)) {
+					if (req.body.selectedVote === 'like') {
+						item.like += 1;
+					} else {
+						item.dislike += 1;
+					}
+					break;
+				}
+			}
+
+			fs.writeFile('data.json', JSON.stringify(questions), (err) => {
+				if (err) {
+					res.status(500).json({
+						success: false,
+						message: err.message,
+					});
+				} else {
+					res.status(200).json({
+						success: true,
+					});
+				}
+			});
+		}
+	});
 });
 
 app.listen(3000, error => {
