@@ -32,10 +32,6 @@ mongoose.connect('mongodb://localhost:27017/quyetde', {useNewUrlParser: true}, (
 		});
 
 		app.post('/create-question', (req, res) => {
-			// content
-			// like
-			// dislike
-			// id
 			const newQuestion = {
 				content: req.body.questionContent,
 			};
@@ -47,9 +43,6 @@ mongoose.connect('mongodb://localhost:27017/quyetde', {useNewUrlParser: true}, (
 						message: error.message
 					});
 				} else {
-					console.log({
-						...data
-					});
 					res.status(201).json({
 						success: true,
 						data: {
@@ -59,124 +52,101 @@ mongoose.connect('mongodb://localhost:27017/quyetde', {useNewUrlParser: true}, (
 					});
 				}
 			});
-
-			// readfile
-			// fs.readFile('data.json', { encoding: 'utf8' }, (error, data) => {
-			// 	if (error) {
-			// 		res.status(500).json({
-			// 			success: false,
-			// 			message: error.message
-			// 		});
-			// 	} else {
-			// 		// json
-			// 		// push newQuestion
-			// 		const questions = JSON.parse(data);
-			// 		questions.push(newQuestion);
-
-			// 		// writefile
-			// 		fs.writeFile('data.json', JSON.stringify(questions), err => {
-			// 			if (err) {
-			// 				res.status(500).json({
-			// 					success: false,
-			// 					message: err.message
-			// 				});
-			// 			} else {
-			// 				res.status(201).json({
-			// 					success: true,
-			// 					data: newQuestion
-			// 				});
-			// 			}
-			// 		});
-			// 	}
-			// });
 		});
 
 		app.get('/questions/:questionId', (req, res) => {
-			// params
-			// req.params.questionId
-			console.log(req.params);
 			res.sendFile(path.resolve(__dirname, './public/question-detail.html'));
 		});
 
 		app.get('/get-question-by-id', (req, res) => {
 			const questionId = req.query.questionId;
 
-			fs.readFile('data.json', 'utf8', (error, data) => {
+			QuestionModel.findById(questionId, (error, data) => {
 				if (error) {
 					res.status(500).json({
 						success: false,
 						message: error.message,
 					});
 				} else {
-					const questions = JSON.parse(data);
-					let selectedQuestion;
-					for (const item of questions) {
-						if (item.id === Number(questionId)) {
-							selectedQuestion = item;
-							break;
-						}
+					if (!data) {
+						res.status(404).json({
+							success: false,
+							message: `Question not found`,
+						});
+					} else {
+						res.status(200).json({
+							success: true,
+							data: {
+								...data._doc,
+								id: data._id,
+							},
+						});
 					}
-
-					res.status(200).json({
-						success: true,
-						data: selectedQuestion,
-					});
 				}
 			});
 		});
 
 		app.get('/get-random-question', (req, res) => {
-			fs.readFile('data.json', 'utf8', (error, data) => {
+			QuestionModel.aggregate([
+				{$sample: {size: 1}},
+			], (error, data) => {
 				if (error) {
 					res.status(500).json({
 						success: false,
 						message: error.message,
 					});
 				} else {
-					const questions = JSON.parse(data);
-					const randomIndex = Math.floor(Math.random() * questions.length);
-					const selectedQuestion = questions[randomIndex];
-
+					const selectedQuestion = data[0];
 					res.status(200).json({
 						success: true,
-						data: selectedQuestion,
+						data: {
+							...selectedQuestion,
+							id: selectedQuestion._id,
+						},
 					});
 				}
 			});
 		});
 
 		app.put('/vote-question', (req, res) => {
-			// read file
-			fs.readFile('data.json', 'utf8', (error, data) => {
+			const questionId = req.body.questionId;
+			const selectedVote = req.body.selectedVote;
+
+			QuestionModel.findByIdAndUpdate(questionId, {$inc: {
+				[selectedVote]: 1,
+			}}, (error) => {
 				if (error) {
 					res.status(500).json({
 						success: false,
 						message: error.message,
 					});
 				} else {
-					const questions = JSON.parse(data);
-					for (const item of questions) {
-						if (item.id === Number(req.body.questionId)) {
-							if (req.body.selectedVote === 'like') {
-								item.like += 1;
-							} else {
-								item.dislike += 1;
-							}
-							break;
-						}
-					}
+					res.status(201).json({
+						success: true,
+					})
+				}
+			});
+		});
 
-					fs.writeFile('data.json', JSON.stringify(questions), (err) => {
-						if (err) {
-							res.status(500).json({
-								success: false,
-								message: err.message,
-							});
-						} else {
-							res.status(200).json({
-								success: true,
-							});
-						}
+		app.get('/search', (req, res) => {
+			res.sendFile(path.resolve(__dirname, './public/search.html'));
+		});
+
+		app.get('/search-question', (req, res) => {
+			const keyword = req.query.keyword;
+
+			QuestionModel.find({
+				content: {$regex: keyword, $options: 'i'},
+			}, (error, data) => {
+				if (error) {
+					res.status(500).json({
+						success: false,
+						message: error.message,
+					});
+				} else {
+					res.status(200).json({
+						success: true,
+						data: data,
 					});
 				}
 			});

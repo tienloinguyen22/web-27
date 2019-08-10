@@ -12,6 +12,7 @@ window.onload = () => {
 			return response.json();
 		})
 		.then((data) => {
+			console.log(data);
 			// calculate like/dislike
 			let likePercent = 0;
 			let dislikePercent = 0;
