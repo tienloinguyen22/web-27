@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const usersRouter = require('./users/users.routes');
+const cors = require('cors');
 
 mongoose.connect('mongodb://localhost:27017/techkids-hotgirls', {useNewUrlParser: true}, (error) => {
   if (error) {
@@ -12,6 +13,9 @@ mongoose.connect('mongodb://localhost:27017/techkids-hotgirls', {useNewUrlParser
     const server = express();
 
     // midlewares
+    server.use(cors({
+      origin: ['http://localhost:3000'],
+    }));
     server.use(bodyParser.json());
     server.use(expressSession({
       secret: 'keyboard cat',
