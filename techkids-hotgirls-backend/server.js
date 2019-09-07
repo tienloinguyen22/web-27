@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/techkids-hotgirls', {useNewUrlParser
     // midlewares
     server.use(cors({
       origin: ['http://localhost:3000'],
+      credentials: true,
     }));
     server.use(bodyParser.json());
     server.use(expressSession({

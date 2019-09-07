@@ -10,6 +10,7 @@ class RegisterScreen extends React.Component {
     errMessage: '',
     isSuccess: false,
     counter: 3,
+    loading: false,
   };
 
   handleEmailChange = (event) => {
@@ -59,6 +60,7 @@ class RegisterScreen extends React.Component {
     } else {
       this.setState({
         errMessage: '',
+        loading: true,
       });
 
       // fetch
@@ -68,6 +70,7 @@ class RegisterScreen extends React.Component {
           headers: {
             'Content-Type': 'application/json'
           },
+          credentials: 'include',
           body: JSON.stringify({
             email: this.state.email,
             password: this.state.password,
@@ -103,6 +106,10 @@ class RegisterScreen extends React.Component {
       } catch (error) {
         this.setState({
           errMessage: error.message,
+        });
+      } finally {
+        this.setState({
+          loading: false,
         });
       }
     }
@@ -179,11 +186,19 @@ class RegisterScreen extends React.Component {
             ) : null}
 
             <div style={{display: 'flex', justifyContent: 'center'}}>
-              <input
-                type="submit"
-                className="btn btn-primary"
-                value="Register"
-              />
+              {this.state.loading ? (
+                <button className='btn btn-primary'>
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </button>
+              ) : (
+                <input
+                  type="submit"
+                  className="btn btn-primary"
+                  value="Register"
+                />
+              )}
             </div>
 					</form>
 				</div>
