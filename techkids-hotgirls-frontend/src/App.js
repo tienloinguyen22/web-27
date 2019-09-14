@@ -84,12 +84,13 @@ class App extends React.Component {
 							</button>
 						</form>
 
-            <a
-              href='/create-post'
-              className="btn btn-outline-primary my-2 my-sm-0 ml-3"
-            >
-              + New post
-            </a>
+            {this.state.currentUser ? (
+              <a href='/create-post'
+                className="btn btn-outline-primary my-2 my-sm-0 ml-3"
+              >
+                + New post
+              </a>
+            ) : null}
 					</div>
 				</nav>
 

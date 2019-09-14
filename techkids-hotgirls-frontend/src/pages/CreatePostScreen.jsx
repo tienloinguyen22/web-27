@@ -29,10 +29,65 @@ class CreatePostScreen extends Component {
         errorMessage: 'File too large (Less than 5MB)',
       });
     } else {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        this.setState({
+          errorMessage: '',
+          file: file,
+          imageUrl: fileReader.result,
+        });
+      };
+    }
+  };
+
+  handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    // validate
+    if (!this.state.content) {
+      this.setState({
+        errorMessage: 'Please input content',
+      });
+    } else if (!this.state.file) {
+      this.setState({
+        errorMessage: 'Please upload an image',
+      });
+    } else {
       this.setState({
         errorMessage: '',
-        file: event.target.files[0],
       });
+
+      // fetch api
+      try {
+        // upload file
+        const formData = new FormData();
+        formData.append('image', this.state.file);
+        const uploadResult = await fetch(`http://localhost:3001/uploads/photos`, {
+          method: 'POST',
+          body: formData,
+        })
+          .then(res => {return res.json();});
+        
+        // create new post
+        await fetch(`http://localhost:3001/posts/create-post`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            content: this.state.content,
+            imageUrl: uploadResult.data,
+          }),
+        }).then((res) => {return res.json();});
+
+        window.location.href = '/';
+      } catch (error) {
+        this.setState({
+          errorMessage: error.message,
+        });
+      }
     }
   };
 
@@ -42,7 +97,7 @@ class CreatePostScreen extends Component {
 				<div className="row">
 					<div className="col-2"></div>
 					<div className="col-8">
-						<form className="mt-5">
+						<form className="mt-5" onSubmit={this.handleFormSubmit}>
 							<div className="form-group row">
 								<label for="content" className="col-sm-2 col-form-label">
 									Content <span className="text-danger">*</span>
@@ -87,6 +142,7 @@ class CreatePostScreen extends Component {
                       backgroundPosition: 'center',
                       width: '100%',
                       height: '400px',
+                      marginTop: '20px',
                     }}></div>
                   ) : null}
 								</div>

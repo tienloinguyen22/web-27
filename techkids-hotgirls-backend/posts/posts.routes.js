@@ -64,4 +64,38 @@ postsRouter.get('/:postId', async (req, res) => {
   }
 });
 
+postsRouter.get('/get/posts', async (req, res) => {
+  // offset paging => pageNumber | pageSize => limit | skip
+  const pageNumber = Number(req.query.pageNumber);
+  const pageSize = Number(req.query.pageSize);
+  const validateSchema = joi.object().keys({
+    pageNumber: joi.number().min(1),
+    pageSize: joi.number().min(1).max(50),
+  });
+  const validateResult = joi.validate({
+    pageNumber: pageNumber,
+    pageSize: pageSize,
+  }, validateSchema);
+  if (validateResult.error) {
+    const error = validateResult.error.details[0];
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  } else {
+    // get data
+    const result = await PostsModel.find({})
+      .populate('author', '_id fullName email')
+      .sort({createdAt: -1, fullName: 1})
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize)
+      .lean();
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  }
+});
+
 module.exports = postsRouter;
