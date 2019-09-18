@@ -90,10 +90,14 @@ postsRouter.get('/get/posts', async (req, res) => {
       .skip((pageNumber - 1) * pageSize)
       .limit(pageSize)
       .lean();
+    const total = await PostsModel.find({}).countDocuments();
 
     res.status(200).json({
       success: true,
-      data: result,
+      data: {
+        data: result,
+        total: total,
+      },
     });
   }
 });
